@@ -1,0 +1,84 @@
+# Template to use as a starting point for this module.
+
+locals {
+  hcloud_token = "..."
+}
+
+output "kubeconfig" {
+  value     = module.hks.kubeconfig
+  sensitive = true
+}
+
+module "hks" {
+  # For local testing
+  source = "../terraform-hks/"
+  # If you want to use the latest main branch
+  # source = "github.com/Stupremee/terraform-hks"
+  # source = "todo"
+
+  # Map of ssh keys that can be used to connect to the nodes.
+  ssh_public_keys = {
+    my-ssh-key = "..."
+  }
+
+  hcloud_token = local.hcloud_token
+
+  # Common prefix for all resources
+  # e.g. the servers will have the name hks-<agent pool name>-<idx>
+  prefix = "hks"
+
+  # If enabled, all created servers will perform a
+  # system upgrade before starting the cluster. This will result
+  # in a few minutes more of starting time, but should be enabled in production
+  perform_system_update = false
+
+  # The zone for the private Hetzner network that will be created.
+  # Can be an of: eu-central, us-east, us-west
+  network_zone = "eu-central"
+
+  # Uncommenting this allows to customize the SSH port of the nodes.
+  # ssh_port = 2222
+
+  # Configure the single master server
+  # Right now, multiple master nodes are not supported by this module
+  master_node = {
+    # The name of the master server
+    name = "master"
+    # The Hetzner server type
+    # At least CPX21 is recommened, otherwise you will likely run into memory exhaustion
+    server_type = "cpx21"
+    # The location of the server
+    location = "fsn1"
+  }
+
+  # List of node pools to create as the agents for this cluster.
+  agent_nodepools = [{
+    # Give the node pool a name
+    name = "small",
+    # The type of servers for this pool
+    server_type = "cx21",
+    # The location
+    location = "nbg1",
+    # Amount of agents in this pool
+    count = 1
+    }, {
+    name        = "big",
+    server_type = "cx21",
+    location    = "fsn1",
+    count       = 0
+  }]
+
+  # In order for the NGINX Ingress server to work, a Hetzner load balancer must be created,
+  # which can be configured here
+  loadbalancer = {
+    # Type/Size of the load balancer
+    type     = "lb11"
+    location = "fsn1"
+  }
+
+  # Configure the cert-manager instance that will be automatically deployed in the cluster.
+  cert-manager = {
+    # The mail that will be send to letsencrypt to create the SSL certificates
+    email = "justus.k@protonmail.com"
+  }
+}
