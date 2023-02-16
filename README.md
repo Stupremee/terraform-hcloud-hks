@@ -17,7 +17,7 @@ However, in the future, I want to make this module more suited for general use, 
 - Integration with [Hetzner Cloud Controller Manager][hccm]
 - NGINX Ingress controller using a Hetzner Load Balancer
 - [Cilium][cilium] as the Kubernetes CNI
-- [Hetzner CSI] for the storage interface
+- [Hetzner CSI][hcsi] for the storage interface
 - Proper use of Hetzner Firewalls to only allow required traffic
 - Installation happens using [cloud-init][cloud-init]
 
