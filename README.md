@@ -16,6 +16,7 @@ However, in the future, I want to make this module more suited for general use, 
 - Use of Hetzner Private Networks to reduce latency
 - Integration with [Hetzner Cloud Controller Manager][hccm]
 - NGINX Ingress controller using a Hetzner Load Balancer
+  - Including [cert-manager][cert-manager] configured using LetsEncrypt
 - [Cilium][cilium] as the Kubernetes CNI
 - [Hetzner CSI][hcsi] for the storage interface
 - Proper use of Hetzner Firewalls to only allow required traffic
@@ -50,3 +51,4 @@ terraform apply
 [cilium]: https://cilium.io
 [hcsi]: https://github.com/hetznercloud/csi-driver
 [cloud-init]: https://cloud-init.io
+[cert-manager]: http://cert-manager.io
