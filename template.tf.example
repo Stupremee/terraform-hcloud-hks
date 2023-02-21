@@ -11,10 +11,11 @@ output "kubeconfig" {
 
 module "hks" {
   # For local testing
-  source = "../terraform-hks/"
+  # source = "../terraform-hks/"
   # If you want to use the latest main branch
   # source = "github.com/Stupremee/terraform-hks"
-  # source = "todo"
+
+  source = "Stupremee/hks/hcloud"
 
   # Map of ssh keys that can be used to connect to the nodes.
   ssh_public_keys = {
