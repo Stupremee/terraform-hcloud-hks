@@ -1,3 +1,7 @@
+<a href="https://terraform.io">
+    <img src="https://github.com/Stupremee/terraform-hcloud-hks/raw/main/assets/tf.png" alt="Terraform logo" title="Terraform" align="left" height="50" />
+</a>
+
 # Terraform HKS
 
 An opinionated [Terraform][tf] module for deploying a Hetzner Kubernetes Cluster using [RKE2][rke2] and [Hetzner Cloud][hcloud].
@@ -41,7 +45,7 @@ terraform apply
 
 5. Get the kubeconfig output from Terraform using `terraform output -raw kubeconfig > ~/.kube/config`.
 6. Run `kubectl get nodes` and check for all running nodes. Output should look something like this:
-   ![kubectl output](/assets/kubectl-get-nodes-output.png?raw=true)
+   ![kubectl output](https://github.com/Stupremee/terraform-hcloud-hks/raw/main/assets/kubectl-get-nodes-output.png)
    You may be wondering that some agent nodes do not show up yet. This is because the module does not wait for all agents to finish their setup process, so just wait a minute and they should appear :)
 
 [tf]: https://www.terraform.io
